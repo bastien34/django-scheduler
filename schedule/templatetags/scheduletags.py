@@ -202,39 +202,25 @@ def querystring_for_date(date, num=6):
     return escape(query_string)
 
 
-@register.simple_tag
-def prev_url(target, calendar, period):
+def get_calendar_url(target, calendar, period):
     now = timezone.now()
     delta = now - period.prev().start
     slug = calendar.slug
     if delta.total_seconds() > SCHEDULER_PREVNEXT_LIMIT_SECONDS:
         return ""
+    return reverse(target, kwargs={'calendar_slug': slug})
 
-    return mark_safe(
-        '<a href="%s%s"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>'
-        % (
-            reverse(target, kwargs={"calendar_slug": slug}),
-            querystring_for_date(period.prev().start),
-        )
-    )
+
+@register.simple_tag
+def prev_url(target, calendar, period):
+    c_url = get_calendar_url(target, calendar, period)
+    return mark_safe(f"{c_url}{querystring_for_date(period.prev().start)}")
 
 
 @register.simple_tag
 def next_url(target, calendar, period):
-    now = timezone.now()
-    slug = calendar.slug
-
-    delta = period.next().start - now
-    if delta.total_seconds() > SCHEDULER_PREVNEXT_LIMIT_SECONDS:
-        return ""
-
-    return mark_safe(
-        '<a href="%s%s"><span class="glyphicon glyphicon-circle-arrow-right"></span></a>'
-        % (
-            reverse(target, kwargs={"calendar_slug": slug}),
-            querystring_for_date(period.next().start),
-        )
-    )
+    c_url = get_calendar_url(target, calendar, period)
+    return mark_safe(f"{c_url}{querystring_for_date(period.next().start)}")
 
 
 @register.inclusion_tag("schedule/_prevnext.html")
