@@ -22,6 +22,8 @@ from schedule.views import (
     api_select_create,
 )
 
+app_name = "schedule"
+
 urlpatterns = [
     re_path(r"^$", ListView.as_view(model=Calendar), name="calendar_list"),
     re_path(
