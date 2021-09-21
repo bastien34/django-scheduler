@@ -1,0 +1,13 @@
+{% if day.start.month < month.start.month %}
+  <td class="fc-day fc-other-month fc-past{% if number %} fc-day-top{% endif %}" data-date="{{ day.start.date }}">
+    {% elif day.start.month > month.start.month %}
+  <td class="fc-day fc-other-month fc-future{% if number %} fc-day-top{% endif %}" data-date="{{ day.start.date }}">
+    {% elif day.start.date == today %}
+  <td class="fc-day fc-today{% if number %} fc-day-top{% endif %}" data-date="{{ day.start.date }}">
+    {% else %}
+  <td class="fc-day{% if number %} fc-day-top{% endif %}" data-date="{{ day.start.date }}">
+{% endif %}
+{% if number %}
+  <span class="fc-day-number">{{ day.start.day }}</span>
+{% endif %}
+</td>

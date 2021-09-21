@@ -1,0 +1,55 @@
+{% load scheduletags %}
+
+{% comment %}
+
+# single day container
+
+        <td class="fc-event-container">
+          <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable fc-resizable"
+              style="background-color:rgb(55, 188, 155);border-color:rgb(255, 255, 255)">
+            <div class="fc-content"><span class="fc-title">Lunch</span></div>
+            <div class="fc-resizer fc-end-resizer"></div>
+          </a>
+        </td>
+
+# All day Event
+
+        <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+          style="background-color:#f56954;border-color:#f56954">
+        <div class="fc-content"><span
+            class="fc-time">12a</span> <span
+            class="fc-title">All Day Event</span></div>
+      </a>
+
+
+# Multi days Event
+
+       <td class="fc-event-container" colspan="3">
+       <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+            style="background-color:#f39c12;border-color:#f39c12">
+          <div class="fc-content">
+          <span class="fc-time">12a</span> <span
+              class="fc-title">Long Event</span></div>
+        </a></td>
+
+
+{% endcomment %}
+<td>
+  {% if day.has_occurrences %}
+    {% for o in day.get_occurrence_partials %}
+      <h1>{{ o.occurrence.title }}</h1>
+      <h1>{{ o.occurrence.class }}</h1>
+      {#      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#occurrenceModal">#}
+      {#        <div class="starttime">#}
+      {#          {% if o.class == 0 %}{{ o.occurrence.start|time:"G:i" }}{% endif %}#}
+      {#          {% if o.class == 1 %}{{ o.occurrence.start|time:"G:i" }}{% endif %}#}
+      {#          {% if o.class == 2 %}(All day){% endif %}#}
+      {#          {% if o.class == 3 %}Ends at {{ o.occurrence.end|time:"G:i" }}{% endif %}#}
+      {#        </div>#}
+      {#        <div class="eventdesc">#}
+      {#          {% title o.occurrence %}#}
+      {#        </div>#}
+      {#      </button>#}
+    {% endfor %}
+  {% endif %}
+</td>

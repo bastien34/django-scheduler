@@ -37,9 +37,23 @@ def month_table(context, calendar, month, size="regular", shift=None):
     return context
 
 
-@register.inclusion_tag("schedule/_day_cell.html", takes_context=True)
-def day_cell(context, calendar, day, month, size="regular"):
+@register.inclusion_tag("schedule/day/cell_container.html", takes_context=True)
+def day_cell_container(context, calendar, day, month, size="regular"):
     context.update({"calendar": calendar, "day": day, "month": month, "size": size})
+    return context
+
+
+@register.inclusion_tag("schedule/day/cell.html", takes_context=True)
+def day_cell(context, day, month, number=None):
+    context.update({"today": timezone.now().date(), "month": month,  "day": day,
+                    "number": number})
+    return context
+
+
+@register.inclusion_tag("schedule/_this_month_button.html", takes_context=True)
+def this_month_button(context, start_date):
+    this_month = start_date.start.month == timezone.now().date().month
+    context.update({'this_month': this_month})
     return context
 
 
