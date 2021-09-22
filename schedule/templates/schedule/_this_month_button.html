@@ -1,0 +1,11 @@
+{% load i18n %}
+{% if this_month %}
+  <button type="button"
+          class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled"
+          data-url="{% url "schedule:month_calendar" calendar.slug %}" disabled>
+{% else %}
+  <button type="button"
+          class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right"
+          data-url="{% url "schedule:month_calendar" calendar.slug %}">
+{% endif %}
+{% trans "This month" %}</button>

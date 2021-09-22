@@ -38,8 +38,10 @@ def month_table(context, calendar, month, size="regular", shift=None):
 
 
 @register.inclusion_tag("schedule/day/cell_container.html", takes_context=True)
-def day_cell_container(context, calendar, day, month, size="regular"):
-    context.update({"calendar": calendar, "day": day, "month": month, "size": size})
+def day_cell_container(context, calendar, day, month, 
+                       week, size="regular"):
+    context.update({"calendar": calendar, "day": day, "month": month,
+                    'week': week, "size": size})
     return context
 
 
@@ -278,3 +280,8 @@ def _cook_slots(period, increment):
 @register.simple_tag
 def hash_occurrence(occ):
     return "{}_{}".format(occ.start.strftime("%Y%m%d%H%M%S"), occ.event.id)
+
+
+@register.filter
+def already_started(occ, day):
+    return occ.start.date() < day.start.date()

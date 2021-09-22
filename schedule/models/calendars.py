@@ -209,7 +209,7 @@ class CalendarRelation(models.Model):
     object_id: the id of the generic object
     content_object: the generic foreign key to the generic object
     distinction: a string representing a distinction of the relation, User could
-    have a 'veiwer' relation and an 'owner' relation for example.
+    have a 'viewer' relation and an 'owner' relation for example.
     inheritable: a boolean that decides if events of the calendar should also
     inherit this relation
 

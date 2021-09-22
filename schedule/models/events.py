@@ -138,7 +138,7 @@ class Event(models.Model):
         #
         # Periods, and their subclasses like Week, call
         # prefetch_related('occurrence_set') on all events in their
-        # purview. This reduces the database queries they make from
+        # preview. This reduces the database queries they make from
         # len()+1 to 2. However, having a cached occurrence_set on the
         # Event model instance can sometimes cause Events to have a
         # different view of the state of occurrences than the Period
@@ -146,7 +146,7 @@ class Event(models.Model):
         #
         # E.g., if you create an unsaved occurrence, move it to a
         # different time [which saves the event], keep a reference to
-        # the moved occurrence, & refetch all occurrences from the
+        # the moved occurrence, & prefetch all occurrences from the
         # Period without clearing the prefetch cache, you'll end up
         # with two Occurrences for the same event but different moved
         # states. It's a complicated scenario, but can happen. (See
