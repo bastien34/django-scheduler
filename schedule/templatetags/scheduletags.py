@@ -53,9 +53,10 @@ def day_cell(context, day, month, number=None):
 
 
 @register.inclusion_tag("schedule/_this_month_button.html", takes_context=True)
-def this_month_button(context, start_date):
+def this_month_button(context, view_name, start_date):
     this_month = start_date.start.month == timezone.now().date().month
     context.update({'this_month': this_month})
+    context.update({'view_name': view_name})
     return context
 
 
